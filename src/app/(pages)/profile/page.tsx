@@ -50,6 +50,7 @@ import {
 import { CommentWithArticle } from '@/utils/types';
 import HeaderSkelton from '@/componnents/profile/HeaderSkelton';
 import ArticleSkelton from '@/componnents/profile/ArticleSkelton';
+import CreateArticleModal from '@/componnents/profile/CreateArticleModal ';
 
 const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -237,7 +238,7 @@ const ProfilePage = () => {
        </motion.div>
       )}
      
-      
+     <CreateArticleModal />
       <Divider sx={{ my: 4 }} />
       
       {/*  Edit Profile Dialog */}

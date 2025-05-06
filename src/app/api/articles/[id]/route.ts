@@ -21,7 +21,7 @@ export async function GET(
   ): Promise<NextResponse> {
     try {
 
-
+        
 
         const articleId = Number(params.id);
         if (isNaN(articleId)) {
