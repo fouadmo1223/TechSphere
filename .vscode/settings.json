@@ -1,0 +1,5 @@
+{
+  "bladeFormatter.format.enabled": false,
+  "path-autocomplete.extensionOnImport": true,
+  "cSpell.words": ["Laravel", "searchtext"]
+}
