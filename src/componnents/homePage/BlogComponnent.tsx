@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function BlogComponnent({item}:{item:number}) {
+  const router = useRouter();
     return(
         <motion.div     
         key={item}
@@ -23,6 +25,7 @@ export default function BlogComponnent({item}:{item:number}) {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <motion.a
+           onClick={() => router.push("/articles")}
             whileHover={{ x: 5 }}
             href="#" 
             className="text-blue-600 font-semibold hover:underline inline-flex items-center"
