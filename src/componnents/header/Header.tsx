@@ -99,6 +99,7 @@ export default function Header() {
   const pathname = usePathname();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallMobile = useMediaQuery('(max-width:515px)');
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -332,7 +333,8 @@ export default function Header() {
                   variants={itemVariants}
                   custom={navLinks.length + 1}
                 >
-                  <Link href="/register" passHref>
+                  {!isSmallMobile &&(
+                    <Link href="/register" passHref>
                     <Button
                       variant="contained"
                       sx={{
@@ -351,6 +353,7 @@ export default function Header() {
                       Register
                     </Button>
                   </Link>
+                  )}
                 </motion.div>
               </>
             )}
@@ -439,27 +442,34 @@ export default function Header() {
                           </Button>
                         </Link>
                       </motion.div>
-                      <motion.div variants={mobileItemVariants}>
-                        <Link href="/register" passHref>
-                          <Button
-                            variant="contained"
-                            fullWidth
-                            sx={{
-                              justifyContent: "flex-start",
-                              fontWeight: 600,
-                              textTransform: "none",
-                              fontSize: "1rem",
-                              px: 3,
-                              py: 1.5,
-                              background:
-                                "linear-gradient(45deg, #6366f1 0%, #8b5cf6 100%)",
-                            }}
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            Register
-                          </Button>
-                        </Link>
-                      </motion.div>
+                      {isMobile && (
+                        <motion.div
+                          initial="hidden"
+                          animate="visible"
+                          variants={itemVariants}
+                          custom={navLinks.length + 1}
+                        >
+                          <Link href="/register" passHref>
+                            <Button
+                              variant="contained"
+                              sx={{
+              fontWeight: 600,
+              borderRadius: "8px",
+              px: 3,
+              textTransform: "none",
+              background:
+                "linear-gradient(45deg, #6366f1 0%, #8b5cf6 100%)",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              "&:hover": {
+                boxShadow: "0 6px 8px rgba(0, 0, 0, 0.15)",
+              },
+            }}
+                            >
+                              Register
+                            </Button>
+                          </Link>
+                        </motion.div>
+                      )}
                     </>
                   )}
                 </Box>
