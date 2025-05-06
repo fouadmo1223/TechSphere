@@ -26,6 +26,8 @@ import ArticlesSimilar from '@/componnents/article/ArticlesSimilar';
 import { useAuth } from '@/app/context/UserContext';
 import { SingleArticle } from '@/utils/types';
 import Swal from 'sweetalert2';
+import { notFound } from 'next/navigation';
+import NotFoundPage from '../../not-found';
 
 interface SingleArticleProps {
   params: Promise<{ articleId: string }>;
@@ -104,12 +106,16 @@ const similarArticles = [
 
 const getArticle = async (articleId: string): Promise<SingleArticle> => {
   const res = await fetch(`${HOST}api/articles/${articleId}`);
-  if (!res.ok) throw new Error("Failed to fetch article");
+  if (!res.ok) {
+    // If response is not 2xx, throw an error
+    throw new Error('Article not found');
+  }
   return res.json();
 };
 
 export default function SingleArticlePage({ params }: SingleArticleProps) {
   const { articleId } = use(params);
+  const [error, setError] = useState(false);
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -125,7 +131,13 @@ export default function SingleArticlePage({ params }: SingleArticleProps) {
         setArticle(data);
         setComments(data.comments || []);
       } catch (error) {
-        toast.error("Failed to load article");
+        if (error.message === 'Article not found') {
+          setError(true);
+
+        } else {
+          toast.error(error.message);
+        }
+
       } finally {
         setLoading(false);
       }
@@ -217,7 +229,7 @@ export default function SingleArticlePage({ params }: SingleArticleProps) {
     }
   };
 
-  if (loading || !article) {
+  if (loading) {
     return (
       <div className="min-h-screen py-8 bg-gray-50">
         <Container maxWidth="lg">
@@ -249,6 +261,9 @@ export default function SingleArticlePage({ params }: SingleArticleProps) {
         </Container>
       </div>
     );
+  }
+  if (!article) {
+    return <NotFoundPage />
   }
 
   return (

@@ -49,7 +49,7 @@ export default function ErrorPage() {
                 transition={{ delay: 0.2 }}
               >
                 <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500">
-                  Oops! System Glitch
+                  Oops! Not Found
                 </h1>
               
               </motion.div>
